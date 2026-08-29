@@ -8,72 +8,77 @@
 </head>
 <body>
 
-  <div class="card">
-    <h1>PALADIUM</h1>
-    <p class="subtitle">Optimiseur Métier Mineur</p>
+  <div class="main-wrapper">
+    
+    <div class="card">
+      <h1>PALADIUM</h1>
+      <p class="subtitle">Optimiseur Métier Mineur</p>
 
-    <div class="form-group">
-      <label>Niveau Actuel</label>
-      <input type="number" id="currentLevel" value="1">
-    </div>
-
-    <div class="form-group">
-      <label>XP Actuelle</label>
-      <input type="number" id="currentXP" value="0">
-    </div>
-
-    <div class="form-group">
-      <label>Niveau Visé</label>
-      <input type="number" id="targetLevel" value="4">
-    </div>
-
-    <div class="form-group">
-      <label>Minerai de Farm</label>
-      <select id="ore">
-        <option value="25">Titane (25 XP)</option>
-        <option value="0.5">Pierre / Stone (0.5 XP)</option>
-      </select>
-    </div>
-
-    <div class="checkbox-group">
-      <input type="checkbox" id="booster" checked>
-      <label for="booster">Booster XP Actif (+50%)</label>
-    </div>
-
-    <button id="calc-btn" onclick="calculate()">Calculer l'objectif</button>
-
-    <div class="result-box" id="result">
-      Rentre tes données et lance le calcul.
-    </div>
-
-    <hr style="border: 0; height: 1px; background: #333; margin: 25px 0;">
-
-    <h2 style="color: #ff6b00; text-align: center; font-size: 20px; margin-bottom: 5px;">PALADIUM CLICKER</h2>
-    <p style="text-align: center; color: #888; font-size: 12px; margin-top: 0; margin-bottom: 15px;">Mine en attendant ton farm !</p>
-
-    <div style="background: #222; padding: 15px; border-radius: 10px; text-align: center; margin-bottom: 15px;">
-      <div id="score" style="font-size: 36px; font-weight: bold; color: #ff6b00;">0</div>
-      <div style="font-size: 12px; color: #aaa;">Paladiums minés</div>
-      <div id="pps" style="font-size: 13px; color: #00ff88; margin-top: 5px;">0 / seconde</div>
-    </div>
-
-    <button id="click-btn" style="width: 100%; padding: 15px; font-size: 18px; font-weight: bold; background-color: #ff6b00; color: white; border: none; border-radius: 10px; cursor: pointer; margin-bottom: 15px;">🔨 MINER !</button>
-
-    <div class="shop">
-      <div style="display: flex; justify-content: space-between; align-items: center; background: #222; padding: 10px; border-radius: 8px; margin-bottom: 10px;">
-        <div>
-          <strong style="font-size: 13px;">Pioche renforcée</strong> (+1/clic)<br>
-          <small style="color: #aaa;">Coût: <span id="cost-click">15</span></small>
-        </div>
-        <button id="buy-click" style="background: #333; color: white; border: 1px solid #555; padding: 6px 10px; border-radius: 6px; cursor: pointer;">Acheter (<span id="count-click">0</span>)</button>
+      <div class="form-group">
+        <label>Niveau Actuel</label>
+        <input type="number" id="currentLevel" value="3">
       </div>
 
-      <div style="display: flex; justify-content: space-between; align-items: center; background: #222; padding: 10px; border-radius: 8px;">
-        <div>
-          <strong style="font-size: 13px;">Mineur Auto</strong> (+1/sec)<br>
-          <small style="color: #aaa;">Coût: <span id="cost-auto">50</span></small>
+      <div class="form-group">
+        <label>XP Actuelle</label>
+        <input type="number" id="currentXP" value="26818">
+      </div>
+
+      <div class="form-group">
+        <label>Niveau Visé</label>
+        <input type="number" id="targetLevel" value="4">
+      </div>
+
+      <div class="form-group">
+        <label>Minerai de Farm</label>
+        <select id="ore">
+          <option value="25">Titane (25 XP)</option>
+          <option value="0.5">Pierre / Stone (0.5 XP)</option>
+        </select>
+      </div>
+
+      <div class="checkbox-group">
+        <input type="checkbox" id="booster" checked>
+        <label for="booster">Booster XP Actif (+50%)</label>
+      </div>
+
+      <button id="calc-btn" onclick="calculate()">Calculer l'objectif</button>
+
+      <div class="result-box" id="result">
+        Rentre tes données et lance le calcul.
+      </div>
+    </div>
+
+    <div class="card">
+      <h1>PALADIUM CLICKER</h1>
+      <p class="subtitle">Mine en attendant ton farm !</p>
+
+      <div class="clicker-score">
+        <div id="score">0</div>
+        <div class="sub-label">Paladiums minés</div>
+        <div id="pps">0 / seconde</div>
+      </div>
+
+      <button id="click-btn">🔨 MINER !</button>
+
+      <div class="shop">
+        <h3>Boutique</h3>
+
+        <div class="upgrade-item">
+          <div>
+            <strong>Pioche renforcée</strong> (+1/clic)<br>
+            <small>Coût: <span id="cost-click">15</span></small>
+          </div>
+          <button id="buy-click">Acheter (<span id="count-click">0</span>)</button>
         </div>
-        <button id="buy-auto" style="background: #333; color: white; border: 1px solid #555; padding: 6px 10px; border-radius: 6px; cursor: pointer;">Acheter (<span id="count-auto">0</span>)</button>
+
+        <div class="upgrade-item">
+          <div>
+            <strong>Mineur Auto</strong> (+1/sec)<br>
+            <small>Coût: <span id="cost-auto">50</span></small>
+          </div>
+          <button id="buy-auto">Acheter (<span id="count-auto">0</span>)</button>
+        </div>
       </div>
     </div>
 
