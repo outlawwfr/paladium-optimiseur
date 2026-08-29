@@ -1,101 +1,149 @@
-const xpParNiveau = {
-  1: 0,
-  2: 25000,
-  3: 45000,
-  4: 73751,
-  5: 118886,
-  6: 180000,
-  7: 270000,
-  8: 380000,
-  9: 510000,
-  10: 670000,
-  11: 870000,
-  12: 1120000,
-  13: 1420000,
-  14: 1780000,
-  15: 2200000,
-  16: 2700000,
-  17: 3300000,
-  18: 4000000,
-  19: 4800000,
-  20: 5800000
+// --- DATA METIERS PALADIUM V12 ---
+const jobsData = {
+  miner: [
+    { name: "Minerai de Paladium Vert (340 XP)", xp: 340 },
+    { name: "Minerai de Paladium (150 XP)", xp: 150 },
+    { name: "Minerai de Titane (50 XP)", xp: 50 },
+    { name: "Minerai d'Améthyste (20 XP)", xp: 20 },
+    { name: "Pierre / Stone (0.5 XP)", xp: 0.5 }
+  ],
+  farmer: [
+    { name: "Récolte Eggplant (40 XP)", xp: 40 },
+    { name: "Récolte Cherries (25 XP)", xp: 25 },
+    { name: "Récolte Blé (5 XP)", xp: 5 },
+    { name: "Récolte Carotte (4 XP)", xp: 4 }
+  ],
+  alchemist: [
+    { name: "Fiole de Paladium (200 XP)", xp: 200 },
+    { name: "Potion de Force II (80 XP)", xp: 80 },
+    { name: "Preparation Potion (15 XP)", xp: 15 }
+  ],
+  hunter: [
+    { name: "Wither Boss (1500 XP)", xp: 1500 },
+    { name: "Ender Dragon (5000 XP)", xp: 5000 },
+    { name: "Mob Agressif (12 XP)", xp: 12 },
+    { name: "Animal / Mob Passif (4 XP)", xp: 4 }
+  ]
 };
 
-let blocsRestants = 0;
+// Formule d'XP par niveau
+function getXPForLevel(lvl) {
+  return Math.floor(100 * Math.pow(lvl, 1.8));
+}
 
-function calculer() {
-  let xpActuelle = parseFloat(document.getElementById('currentXP').value) || 0;
-  let nivVise = parseInt(document.getElementById('targetLevel').value) || 4;
-  
-  // Conversion explicite en nombre avec fallback sur 0.5
-  let oreVal = document.getElementById('oreSelect').value;
-  let xpBaseParBloc = parseFloat(oreVal);
-  if (isNaN(xpBaseParBloc) || xpBaseParBloc <= 0) {
-    xpBaseParBloc = 0.5;
+function getTotalXPBetween(startLvl, startXP, targetLvl) {
+  let totalNeeded = 0;
+  for (let i = startLvl; i < targetLvl; i++) {
+    totalNeeded += getXPForLevel(i);
   }
+  return Math.max(0, totalNeeded - startXP);
+}
 
-  let boosterActive = document.getElementById('booster').checked;
+// Elements DOM Calculateur
+const jobSelect = document.getElementById("jobSelect");
+const oreSelect = document.getElementById("ore");
+const calcBtn = document.getElementById("calc-btn");
+const resultDiv = document.getElementById("result");
 
-  let totalXpCible = xpParNiveau[nivVise] || 0;
-  let xpManquante = totalXpCible - xpActuelle;
+function updateItemList() {
+  const selectedJob = jobSelect.value;
+  const items = jobsData[selectedJob] || [];
+  oreSelect.innerHTML = "";
+  items.forEach(item => {
+    const opt = document.createElement("option");
+    opt.value = item.xp;
+    opt.textContent = item.name;
+    oreSelect.appendChild(opt);
+  });
+}
 
-  if (xpManquante <= 0) {
-    document.getElementById('output').innerHTML = "Tu as déjà atteint cet objectif !";
-    if (document.getElementById('shortcutInfo')) {
-      document.getElementById('shortcutInfo').style.display = 'none';
-    }
+jobSelect.addEventListener("change", updateItemList);
+updateItemList();
+
+calcBtn.addEventListener("click", () => {
+  const currentLvl = parseInt(document.getElementById("currentLevel").value) || 1;
+  const currentXP = parseInt(document.getElementById("currentXP").value) || 0;
+  const targetLvl = parseInt(document.getElementById("targetLevel").value) || 2;
+  const baseXPPerAction = parseFloat(oreSelect.value) || 1;
+  const hasBooster = document.getElementById("booster").checked;
+
+  if (targetLvl <= currentLvl) {
+    resultDiv.innerHTML = "Le niveau visé doit être supérieur au niveau actuel.";
     return;
   }
 
-  let xpReelleParBloc = boosterActive ? xpBaseParBloc * 1.5 : xpBaseParBloc;
-  blocsRestants = Math.ceil(xpManquante / xpReelleParBloc);
+  const neededXP = getTotalXPBetween(currentLvl, currentXP, targetLvl);
+  const xpPerAction = hasBooster ? baseXPPerAction * 1.5 : baseXPPerAction;
+  const actionsNeeded = Math.ceil(neededXP / xpPerAction);
 
-  afficherResultat(xpManquante);
-  if (document.getElementById('shortcutInfo')) {
-    document.getElementById('shortcutInfo').style.display = 'block';
-  }
-}
+  resultDiv.innerHTML = `
+    <strong>XP totale nécessaire :</strong> ${neededXP.toLocaleString()} XP<br>
+    <strong>Actions à réaliser :</strong> ${actionsNeeded.toLocaleString()} fois
+  `;
+});
 
-function minerUnBloc() {
-  if (blocsRestants > 0) {
-    blocsRestants--;
+// --- PALADIUM CLICKER ---
+let score = 0;
+let clickPower = 1;
+let autoPower = 0;
 
-    let oreVal = document.getElementById('oreSelect').value;
-    let xpBaseParBloc = parseFloat(oreVal) || 0.5;
-    let boosterActive = document.getElementById('booster').checked;
-    let xpGain = boosterActive ? xpBaseParBloc * 1.5 : xpBaseParBloc;
+let costClick = 15;
+let costAuto = 50;
 
-    let xpInput = document.getElementById('currentXP');
-    let nouvelleXP = (parseFloat(xpInput.value) || 0) + xpGain;
-    xpInput.value = nouvelleXP;
+let countClick = 0;
+let countAuto = 0;
 
-    let nivVise = parseInt(document.getElementById('targetLevel').value) || 4;
-    let totalXpCible = xpParNiveau[nivVise] || 0;
-    let xpManquante = totalXpCible - nouvelleXP;
+const scoreEl = document.getElementById("score");
+const ppsEl = document.getElementById("pps");
+const clickBtn = document.getElementById("click-btn");
 
-    afficherResultat(Math.max(0, xpManquante));
-  }
-}
+const buyClickBtn = document.getElementById("buy-click");
+const buyAutoBtn = document.getElementById("buy-auto");
 
-function afficherResultat(xpManquante) {
-  if (blocsRestants <= 0) {
-    document.getElementById('output').innerHTML = "<strong style='color:#28a745;'>🎉 Objectif atteint ! GG !</strong>";
-    if (document.getElementById('shortcutInfo')) {
-      document.getElementById('shortcutInfo').style.display = 'none';
-    }
-  } else {
-    document.getElementById('output').innerHTML = `
-      XP manquante : <strong style="color:#ff6b00;">${Math.round(xpManquante).toLocaleString()} XP</strong><br>
-      Blocs à miner : <strong style="color:#ff6b00; font-size:20px;">${blocsRestants.toLocaleString()}</strong>
-    `;
-  }
-}
+const costClickEl = document.getElementById("cost-click");
+const costAutoEl = document.getElementById("cost-auto");
+const countClickEl = document.getElementById("count-click");
+const countAutoEl = document.getElementById("count-auto");
 
-document.addEventListener('keydown', function(event) {
-  const targetTag = event.target.tagName.toLowerCase();
-  if (targetTag === 'input' || targetTag === 'select') return;
+clickBtn.addEventListener("click", () => {
+  score += clickPower;
+  updateClickerDisplay();
+});
 
-  if (event.key === 'r' || event.key === 'R') {
-    minerUnBloc();
+buyClickBtn.addEventListener("click", () => {
+  if (score >= costClick) {
+    score -= costClick;
+    clickPower += 1;
+    countClick++;
+    costClick = Math.floor(costClick * 1.5);
+    updateClickerDisplay();
   }
 });
+
+buyAutoBtn.addEventListener("click", () => {
+  if (score >= costAuto) {
+    score -= costAuto;
+    autoPower += 1;
+    countAuto++;
+    costAuto = Math.floor(costAuto * 1.6);
+    updateClickerDisplay();
+  }
+});
+
+setInterval(() => {
+  if (autoPower > 0) {
+    score += autoPower;
+    updateClickerDisplay();
+  }
+}, 1000);
+
+function updateClickerDisplay() {
+  scoreEl.textContent = score.toLocaleString();
+  ppsEl.textContent = `${autoPower} / seconde`;
+  
+  costClickEl.textContent = costClick;
+  costAutoEl.textContent = costAuto;
+  
+  countClickEl.textContent = countClick;
+  countAutoEl.textContent = countAuto;
+}
