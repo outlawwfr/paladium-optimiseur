@@ -99,3 +99,68 @@ document.addEventListener('keydown', function(event) {
     minerUnBloc();
   }
 });
+// --- JEU CLICKER ---
+let score = 0;
+let clickValue = 1;
+let autoValue = 0;
+let clickCost = 15;
+let autoCost = 50;
+let clickCount = 0;
+let autoCount = 0;
+
+const scoreEl = document.getElementById('score');
+const ppsEl = document.getElementById('pps');
+const clickBtn = document.getElementById('click-btn');
+const buyClickBtn = document.getElementById('buy-click');
+const buyAutoBtn = document.getElementById('buy-auto');
+const costClickEl = document.getElementById('cost-click');
+const costAutoEl = document.getElementById('cost-auto');
+const countClickEl = document.getElementById('count-click');
+const countAutoEl = document.getElementById('count-auto');
+
+if (clickBtn) {
+  clickBtn.addEventListener('click', () => {
+    score += clickValue;
+    updateClickerUI();
+  });
+
+  buyClickBtn.addEventListener('click', () => {
+    if (score >= clickCost) {
+      score -= clickCost;
+      clickValue += 1;
+      clickCount += 1;
+      clickCost = Math.floor(clickCost * 1.5);
+      updateClickerUI();
+    }
+  });
+
+  buyAutoBtn.addEventListener('click', () => {
+    if (score >= autoCost) {
+      score -= autoCost;
+      autoValue += 1;
+      autoCount += 1;
+      autoCost = Math.floor(autoCost * 1.6);
+      updateClickerUI();
+    }
+  });
+
+  setInterval(() => {
+    if (autoValue > 0) {
+      score += autoValue;
+      updateClickerUI();
+    }
+  }, 1000);
+}
+
+function updateClickerUI() {
+  scoreEl.textContent = Math.floor(score);
+  ppsEl.textContent = `${autoValue} / seconde`;
+  costClickEl.textContent = clickCost;
+  costAutoEl.textContent = autoCost;
+  countClickEl.textContent = clickCount;
+  countAutoEl.textContent = autoCount;
+  buyClickBtn.disabled = score < clickCost;
+  buyAutoBtn.disabled = score < autoCost;
+}
+
+updateClickerUI();
