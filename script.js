@@ -1,105 +1,43 @@
-const xpParNiveau = {
-  1: 0,
-  2: 25000,
-  3: 45000,
-  4: 73751,
-  5: 118886,
-  6: 180000,
-  7: 270000,
-  8: 380000,
-  9: 510000,
-  10: 670000,
-  11: 870000,
-  12: 1120000,
-  13: 1420000,
-  14: 1780000,
-  15: 2200000,
-  16: 2700000,
-  17: 3300000,
-  18: 4000000,
-  19: 4800000,
-  20: 5800000
-};
+// --- CALCULATEUR MINEUR ---
+function calculate() {
+  const currentLevel = parseInt(document.getElementById('currentLevel').value) || 1;
+  const currentXP = parseInt(document.getElementById('currentXP').value) || 0;
+  const targetLevel = parseInt(document.getElementById('targetLevel').value) || 1;
+  const oreXP = parseFloat(document.getElementById('ore').value) || 1;
+  const hasBooster = document.getElementById('booster').checked;
 
-let blocsRestants = 0;
-
-function calculer() {
-  let xpActuelle = parseFloat(document.getElementById('currentXP').value) || 0;
-  let nivVise = parseInt(document.getElementById('targetLevel').value) || 4;
-  
-  // Conversion explicite en nombre avec fallback sur 0.5
-  let oreVal = document.getElementById('oreSelect').value;
-  let xpBaseParBloc = parseFloat(oreVal);
-  if (isNaN(xpBaseParBloc) || xpBaseParBloc <= 0) {
-    xpBaseParBloc = 0.5;
-  }
-
-  let boosterActive = document.getElementById('booster').checked;
-
-  let totalXpCible = xpParNiveau[nivVise] || 0;
-  let xpManquante = totalXpCible - xpActuelle;
-
-  if (xpManquante <= 0) {
-    document.getElementById('output').innerHTML = "Tu as déjà atteint cet objectif !";
-    if (document.getElementById('shortcutInfo')) {
-      document.getElementById('shortcutInfo').style.display = 'none';
-    }
+  if (targetLevel <= currentLevel) {
+    document.getElementById('result').textContent = "Le niveau visé doit être supérieur au niveau actuel.";
     return;
   }
 
-  let xpReelleParBloc = boosterActive ? xpBaseParBloc * 1.5 : xpBaseParBloc;
-  blocsRestants = Math.ceil(xpManquante / xpReelleParBloc);
-
-  afficherResultat(xpManquante);
-  if (document.getElementById('shortcutInfo')) {
-    document.getElementById('shortcutInfo').style.display = 'block';
+  // Formule d'estimation d'XP par niveau
+  function getXPForLevel(lvl) {
+    return Math.floor(1000 * Math.pow(lvl, 1.8));
   }
+
+  let totalXPNeeded = 0;
+  for (let l = currentLevel; l < targetLevel; l++) {
+    totalXPNeeded += getXPForLevel(l);
+  }
+
+  let remainingXP = totalXPNeeded - currentXP;
+  if (remainingXP <= 0) {
+    document.getElementById('result').textContent = "Objectif déjà atteint !";
+    return;
+  }
+
+  let finalXPPerBlock = hasBooster ? (oreXP * 1.5) : oreXP;
+  let totalBlocks = Math.ceil(remainingXP / finalXPPerBlock);
+  let totalStacks = (totalBlocks / 64).toFixed(1);
+
+  document.getElementById('result').innerHTML = `
+    XP manquante : <strong>${remainingXP.toLocaleString()} XP</strong><br>
+    Blocs à miner : <strong>${totalBlocks.toLocaleString()}</strong> (~${totalStacks} stacks)
+  `;
 }
 
-function minerUnBloc() {
-  if (blocsRestants > 0) {
-    blocsRestants--;
-
-    let oreVal = document.getElementById('oreSelect').value;
-    let xpBaseParBloc = parseFloat(oreVal) || 0.5;
-    let boosterActive = document.getElementById('booster').checked;
-    let xpGain = boosterActive ? xpBaseParBloc * 1.5 : xpBaseParBloc;
-
-    let xpInput = document.getElementById('currentXP');
-    let nouvelleXP = (parseFloat(xpInput.value) || 0) + xpGain;
-    xpInput.value = nouvelleXP;
-
-    let nivVise = parseInt(document.getElementById('targetLevel').value) || 4;
-    let totalXpCible = xpParNiveau[nivVise] || 0;
-    let xpManquante = totalXpCible - nouvelleXP;
-
-    afficherResultat(Math.max(0, xpManquante));
-  }
-}
-
-function afficherResultat(xpManquante) {
-  if (blocsRestants <= 0) {
-    document.getElementById('output').innerHTML = "<strong style='color:#28a745;'>🎉 Objectif atteint ! GG !</strong>";
-    if (document.getElementById('shortcutInfo')) {
-      document.getElementById('shortcutInfo').style.display = 'none';
-    }
-  } else {
-    document.getElementById('output').innerHTML = `
-      XP manquante : <strong style="color:#ff6b00;">${Math.round(xpManquante).toLocaleString()} XP</strong><br>
-      Blocs à miner : <strong style="color:#ff6b00; font-size:20px;">${blocsRestants.toLocaleString()}</strong>
-    `;
-  }
-}
-
-document.addEventListener('keydown', function(event) {
-  const targetTag = event.target.tagName.toLowerCase();
-  if (targetTag === 'input' || targetTag === 'select') return;
-
-  if (event.key === 'r' || event.key === 'R') {
-    minerUnBloc();
-  }
-});
-// --- JEU CLICKER ---
+// --- PALADIUM CLICKER ---
 let score = 0;
 let clickValue = 1;
 let autoValue = 0;
