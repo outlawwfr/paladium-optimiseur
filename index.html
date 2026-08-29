@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Paladium Optimiseur & Clicker</title>
+  <title>Paladium V12 Optimiseur & Clicker</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -24,10 +24,21 @@
 
   <div class="main-wrapper">
     
-    <!-- BLOC 1 : CALCULATEUR MINEUR -->
+    <!-- BLOC 1 : CALCULATEUR MÉTIERS V12 -->
     <div class="card">
-      <h1>PALADIUM</h1>
-      <p class="subtitle">Optimiseur Métier Mineur</p>
+      <h1>PALADIUM V12</h1>
+      <p class="subtitle">Optimiseur Métiers</p>
+
+      <div class="form-group">
+        <label>Choisis ton Métier</label>
+        <select id="jobSelect">
+          <option value="miner">⛏️ Mineur</option>
+          <option value="farmer">🌾 Farmer</option>
+          <option value="alchemist">🧪 Alchimiste</option>
+          <option value="enchanter">🔮 Enchanteur</option>
+          <option value="hunter">⚔️ Hunter (Chasseur)</option>
+        </select>
+      </div>
 
       <div class="form-group">
         <label>Niveau Actuel</label>
@@ -45,27 +56,9 @@
       </div>
 
       <div class="form-group">
-        <label>Minerai / Bloc de Farm (Paladium V12)</label>
+        <label>Action / Item de Farm</label>
         <select id="ore">
-          <optgroup label="Minerais Rares & Légendaires (V12)">
-            <option value="100">Paladium / Greenium / Endium (100 XP)</option>
-            <option value="60">Findium (60 XP)</option>
-            <option value="40">Améthyste (40 XP)</option>
-            <option value="25">Titane (25 XP)</option>
-            <option value="15">Mithril (15 XP)</option>
-          </optgroup>
-          <optgroup label="Minerais Classiques">
-            <option value="10">Minerai de Diamant (10 XP)</option>
-            <option value="8">Minerai d'Or (8 XP)</option>
-            <option value="5">Minerai de Fer (5 XP)</option>
-            <option value="4">Lapis-Lazuli / Redstone (4 XP)</option>
-            <option value="3">Minerai de Charbon (3 XP)</option>
-          </optgroup>
-          <optgroup label="Minage de Masse & Nether">
-            <option value="1">Quartz / Netherrack (1 XP)</option>
-            <option value="0.5">Pierre / Stone (0.5 XP)</option>
-            <option value="0.2">Terre / Gravel / Sable (0.2 XP)</option>
-          </optgroup>
+          <!-- Chargé dynamiquement par JS -->
         </select>
       </div>
 
@@ -77,7 +70,7 @@
       <button id="calc-btn">Calculer l'objectif</button>
 
       <div class="result-box" id="result">
-        Rentre tes données et lance le calcul.
+        Sélectionne ton métier et lance le calcul.
       </div>
     </div>
 
