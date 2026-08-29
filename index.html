@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Optimiseur de Métiers - Paladium</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Pub Bannière 728x90 (Haut) -->
+  <div style="text-align: center; margin: 15px 0;">
+    <script type="text/javascript">
+      atOptions = {
+        'key' : '44a740483366b2a5ba983f7a6b491274',
+        'format' : 'iframe',
+        'height' : 90,
+        'width' : 728,
+        'params' : {}
+      };
+    </script>
+    <script type="text/javascript" src="https://www.highrevenueformat.com/44a740483366b2a5ba983f7a6b491274/invoke.js"></script>
+  </div>
+
+  <div class="card">
+    <div class="header">
+      <h1>PALADIUM</h1>
+      <p class="subtitle">Optimiseur Métier Mineur</p>
+    </div>
+
+    <div class="form-group">
+      <div class="row">
+        <div class="col">
+          <label for="currentLevel">Niveau Actuel</label>
+          <input type="number" id="currentLevel" value="3" min="1" max="20">
+        </div>
+        <div class="col">
+          <label for="currentXP">XP Actuelle</label>
+          <input type="number" id="currentXP" value="26818" min="0">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="targetLevel">Niveau Visé</label>
+      <input type="number" id="targetLevel" value="4" min="2" max="20">
+    </div>
+
+    <div class="form-group">
+      <label for="oreSelect">Minerai de Farm</label>
+      <select id="oreSelect">
+        <option value="0.5" selected>Pierre / Stone (0.5 XP)</option>
+        <option value="1">Netherrack / Deepslate (1 XP)</option>
+        <option value="4">Charbon (4 XP)</option>
+        <option value="5">Cuivre (5 XP)</option>
+        <option value="6">Fer (6 XP)</option>
+        <option value="8">Lapis-Lazuli (8 XP)</option>
+        <option value="10">Or (10 XP)</option>
+        <option value="12">Redstone (12 XP)</option>
+        <option value="15">Diamant (15 XP)</option>
+        <option value="20">Émeraude (20 XP)</option>
+        <option value="10">Améthyste (10 XP)</option>
+        <option value="25">Titane (25 XP)</option>
+        <option value="100">Paladium (100 XP)</option>
+        <option value="120">Paladium Green (120 XP)</option>
+        <option value="250">Findium (250 XP)</option>
+        <option value="500">Endium (500 XP)</option>
+      </select>
+    </div>
+
+    <div class="form-group checkbox-group">
+      <input type="checkbox" id="booster">
+      <label for="booster">Booster XP Actif (+50%)</label>
+    </div>
+
+    <button onclick="calculer()">Calculer l'objectif</button>
+
+    <div class="resultat" id="output">
+      Rentre tes données et lance le calcul.
+    </div>
+
+    <div id="shortcutInfo" style="margin-top: 15px; text-align: center; color: #888; font-size: 13px; display: none;">
+      💡 Raccourci : Appuie sur la touche <strong style="color:#ff6b00;">R</strong> pour enlever 1 bloc !
+    </div>
+  </div>
+
+  <!-- Pub Carré 300x250 (Bas) -->
+  <div style="text-align: center; margin: 20px 0;">
+    <script type="text/javascript">
+      atOptions = {
+        'key' : 'b895e293104aa6116445460d4e0dd1fe',
+        'format' : 'iframe',
+        'height' : 250,
+        'width' : 300,
+        'params' : {}
+      };
+    </script>
+    <script type="text/javascript" src="https://www.highrevenueformat.com/b895e293104aa6116445460d4e0dd1fe/invoke.js"></script>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
