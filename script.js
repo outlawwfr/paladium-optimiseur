@@ -73,18 +73,9 @@ document.addEventListener('DOMContentLoaded', () => {
         <option value="10">Jacaranda / Judeecercis / Erable Log - Casser (10 XP) [Nv. 1]</option>
         <option value="0.2">Empty Flask - Crafter (0.2 XP) [Nv. 1]</option>
       </optgroup>
-    `,
-    enchanter: `
-      <optgroup label="Enchantements">
-        <option value="200">Livre Paladium / Moddé (200 XP)</option>
-        <option value="100">Enchantement Nv.30 (Table Max) (100 XP)</option>
-        <option value="40">Enchantement Nv.15-29 (40 XP)</option>
-        <option value="15">Enchantement Nv.1-14 (15 XP)</option>
-      </optgroup>
-      <optgroup label="Artisanat">
-        <option value="10">Création de Bouteille d'Expérience (10 XP)</option>
-      </optgroup>
-    `
+    
+  
+    
   };
 
   const jobSelect = document.getElementById('jobSelect');
