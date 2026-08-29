@@ -7,195 +7,103 @@ body {
   align-items: center;
   min-height: 100vh;
   margin: 0;
-  padding: 20px;
-  box-sizing: border-box;
-}
-
-.main-wrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 30px;
-  width: 100%;
-  max-width: 900px;
 }
 
 .card {
   background-color: #181818;
-  padding: 25px;
+  padding: 30px;
   border-radius: 12px;
   border: 1px solid #2a2a2a;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-  flex: 1;
-  min-width: 320px;
-  max-width: 420px;
-  box-sizing: border-box;
-}
-
-@media (max-width: 768px) {
-  .main-wrapper {
-    flex-direction: column;
-    align-items: center;
-  }
-  .card {
-    width: 100%;
-  }
+  width: 380px;
 }
 
 h1 {
   color: #ff6b00;
   text-align: center;
   margin: 0;
-  font-size: 24px;
-  letter-spacing: 1px;
+  font-size: 28px;
+  letter-spacing: 2px;
 }
 
 .subtitle {
   text-align: center;
   color: #888;
   margin-top: 5px;
-  margin-bottom: 20px;
-  font-size: 13px;
+  margin-bottom: 25px;
+  font-size: 14px;
 }
 
 .form-group {
   margin-bottom: 15px;
-  text-align: left;
 }
 
-.form-group label {
+.row {
+  display: flex;
+  gap: 10px;
+}
+
+.col {
+  flex: 1;
+}
+
+label {
   display: block;
   font-size: 13px;
   color: #aaa;
   margin-bottom: 5px;
 }
 
-.form-group input, .form-group select {
+input, select, button {
   width: 100%;
-  padding: 10px;
-  background: #222;
-  border: 1px solid #333;
+  padding: 12px;
   border-radius: 6px;
+  border: 1px solid #333;
+  background-color: #222;
   color: #fff;
   box-sizing: border-box;
+  font-size: 14px;
 }
 
-optgroup {
-  background: #181818;
-  color: #ff6b00;
-}
-
-option {
-  background: #222;
-  color: #fff;
+input:focus, select:focus {
+  outline: none;
+  border-color: #ff6b00;
 }
 
 .checkbox-group {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 15px;
-  font-size: 13px;
-  color: #aaa;
+  gap: 10px;
 }
 
-#calc-btn {
-  width: 100%;
-  padding: 12px;
-  background: #ff6b00;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 15px;
+.checkbox-group input {
+  width: auto;
 }
 
-#calc-btn:hover {
-  background: #e05e00;
+.checkbox-group label {
+  margin-bottom: 0;
 }
 
-.result-box {
-  background: #222;
-  border-left: 3px solid #ff6b00;
-  padding: 12px;
-  margin-top: 15px;
-  font-size: 14px;
-  border-radius: 4px;
-  line-height: 1.5;
-}
-
-/* Clicker Styles */
-.clicker-score {
-  background: #222;
-  padding: 15px;
-  border-radius: 10px;
-  text-align: center;
-  margin-bottom: 15px;
-}
-
-#score {
-  font-size: 36px;
-  font-weight: bold;
-  color: #ff6b00;
-}
-
-.sub-label {
-  font-size: 12px;
-  color: #aaa;
-}
-
-#pps {
-  font-size: 13px;
-  color: #00ff88;
-  margin-top: 5px;
-}
-
-#click-btn {
-  width: 100%;
-  padding: 15px;
-  font-size: 18px;
-  font-weight: bold;
+button {
   background-color: #ff6b00;
-  color: white;
+  color: #fff;
+  font-weight: bold;
   border: none;
-  border-radius: 10px;
   cursor: pointer;
-  margin-bottom: 15px;
+  margin-top: 10px;
+  transition: 0.2s;
 }
 
-#click-btn:active {
-  transform: scale(0.97);
+button:hover {
+  background-color: #e05e00;
 }
 
-.shop h3 {
+.resultat {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #222;
+  border-left: 4px solid #ff6b00;
+  border-radius: 4px;
   font-size: 15px;
-  border-bottom: 1px solid #333;
-  padding-bottom: 6px;
-  margin-bottom: 12px;
-}
-
-.upgrade-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #222;
-  padding: 10px;
-  border-radius: 8px;
-  margin-bottom: 10px;
-}
-
-.upgrade-item button {
-  background: #333;
-  color: white;
-  border: 1px solid #555;
-  padding: 6px 10px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.upgrade-item button:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
+  line-height: 1.6;
 }
