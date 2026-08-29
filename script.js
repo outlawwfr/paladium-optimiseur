@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-  // --- BASE DE DONNÉES MÉTIERS (DONNÉES OFFICIELLES PALADIUM) ---
+  // --- BASE DE DONNÉES MÉTIERS (OFFICIELLE PALADIUM V12) ---
   const jobOptions = {
     miner: `
       <optgroup label="Minerais Rares & Paladium">
@@ -28,27 +28,50 @@ document.addEventListener('DOMContentLoaded', () => {
       </optgroup>
     `,
     farmer: `
-      <optgroup label="Cultures Rares">
-        <option value="50">Graine de Paladium (50 XP)</option>
-        <option value="25">Choco-Champignon (25 XP)</option>
-        <option value="10">Verre à Expérience (10 XP)</option>
+      <optgroup label="Récolte & Actions">
+        <option value="5">Citrouille - Casser (5 XP) [Nv. 7]</option>
+        <option value="4">Melon - Casser (4 XP) [Nv. 6]</option>
+        <option value="2.5">Carotte - Casser (2.5 XP) [Nv. 3]</option>
+        <option value="2">Pomme de terre - Casser (2 XP) [Nv. 2]</option>
+        <option value="2">Pomme de terre cuite - Cuire (2 XP) [Nv. 2]</option>
+        <option value="1.5">Graine (Seed) - Casser (1.5 XP) [Nv. 2]</option>
+        <option value="1">Pain (Bread) - Crafter (1 XP) [Nv. 1]</option>
       </optgroup>
-      <optgroup label="Cultures Classiques">
-        <option value="2">Melon / Citrouille (2 XP)</option>
-        <option value="1">Cactus / Canne à sucre (1 XP)</option>
-        <option value="0.5">Blé / Carotte / Pomme de terre (0.5 XP)</option>
-        <option value="0.3">Nether Wart (0.3 XP)</option>
+    `,
+    hunter: `
+      <optgroup label="Monstres & Créatures">
+        <option value="2500">Ghast - Tuer (2 500 XP) [Nv. 17]</option>
+        <option value="1500">Enderman - Tuer (1 500 XP) [Nv. 18]</option>
+        <option value="600">Zombie Pigman - Tuer (600 XP) [Nv. 14]</option>
+        <option value="150">Jelly Fish - Tuer (150 XP)</option>
+        <option value="120">Snake - Tuer (120 XP) [Nv. 15]</option>
+        <option value="80">Crab - Tuer (80 XP) [Nv. 12]</option>
+        <option value="60">Panda - Tuer (60 XP) [Nv. 11]</option>
+        <option value="25">Blaze - Tuer (25 XP) [Nv. 15]</option>
       </optgroup>
     `,
     alchemist: `
-      <optgroup label="Potions Améliorées">
-        <option value="150">Potion Paladium / Endium (150 XP)</option>
-        <option value="75">Potion Nv.3 / Custom (75 XP)</option>
-        <option value="35">Potion Nv.2 (Force II, Speed II) (35 XP)</option>
-        <option value="15">Potion Nv.1 (Soin, Vitesse) (15 XP)</option>
+      <optgroup label="Sève & Portails">
+        <option value="240">Erable Log - Extraire Sève (240 XP) [Nv. 16]</option>
+        <option value="120">Judeecercis Log - Extraire Sève (120 XP) [Nv. 6]</option>
+        <option value="100">Paladium Flower - Chaudron (100 XP)</option>
+        <option value="60">Jacaranda Log - Extraire Sève (60 XP) [Nv. 3]</option>
+        <option value="40">Paladium Ingot - Portail (40 XP) [Nv. 10]</option>
+        <option value="30">Lightning Potion - Crafter (30 XP) [Nv. 1]</option>
+        <option value="20">Titane Ingot - Portail (20 XP) [Nv. 7]</option>
+        <option value="20">Extractor - Crafter (20 XP) [Nv. 1]</option>
+        <option value="6">Amethyst Ingot - Portail (6 XP) [Nv. 5]</option>
       </optgroup>
-      <optgroup label="Préparations">
-        <option value="5">Création de Fiole d'eau / Base (5 XP)</option>
+      <optgroup label="Glueballs & Chaudron">
+        <option value="15">Glueball Spéciale (Gray, Cyan, Yellow, Purple...) - Chaudron (15 XP) [Nv. 10]</option>
+        <option value="2">Glueball Basique (Green, Blue, Red) - Chaudron (2 XP) [Nv. 6]</option>
+        <option value="2">Fleurs Supérieures (Tulipes, Allium, Daisy...) - Chaudron (2 XP) [Nv. 3]</option>
+        <option value="1">Blue Orchid - Chaudron (1 XP) [Nv. 3]</option>
+        <option value="0.75">Dandelion / Poppy - Chaudron (0.75 XP) [Nv. 3]</option>
+      </optgroup>
+      <optgroup label="Bûches & Matériaux de base">
+        <option value="10">Jacaranda / Judeecercis / Erable Log - Casser (10 XP) [Nv. 1]</option>
+        <option value="0.2">Empty Flask - Crafter (0.2 XP) [Nv. 1]</option>
       </optgroup>
     `,
     enchanter: `
@@ -61,27 +84,12 @@ document.addEventListener('DOMContentLoaded', () => {
       <optgroup label="Artisanat">
         <option value="10">Création de Bouteille d'Expérience (10 XP)</option>
       </optgroup>
-    `,
-    hunter: `
-      <optgroup label="Boss & Mobs Spéciaux">
-        <option value="500">Boss Paladium / Enderdragon (500 XP)</option>
-        <option value="150">Wither / Mobs de Donjon (150 XP)</option>
-      </optgroup>
-      <optgroup label="Monstres (Hostiles)">
-        <option value="15">Enderman / Creeper (15 XP)</option>
-        <option value="10">Zombie / Squelette / Araignée (10 XP)</option>
-      </optgroup>
-      <optgroup label="Animaux (Passifs)">
-        <option value="3">Vache / Cochon / Mouton (3 XP)</option>
-        <option value="1">Poulet (1 XP)</option>
-      </optgroup>
     `
   };
 
   const jobSelect = document.getElementById('jobSelect');
   const oreSelect = document.getElementById('ore');
 
-  // Mettre à jour la liste selon le métier choisi
   function updateOreOptions() {
     const selectedJob = jobSelect.value;
     oreSelect.innerHTML = jobOptions[selectedJob] || jobOptions.miner;
@@ -92,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateOreOptions();
   }
 
-  // --- LOGIQUE DU CALCULATEUR ---
+  // --- CALCULATEUR ---
   const calcBtn = document.getElementById('calc-btn');
   const resultEl = document.getElementById('result');
 
@@ -130,12 +138,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
       resultEl.innerHTML = `
         XP manquante : <strong>${remainingXP.toLocaleString()} XP</strong><br>
-        Unités à farm/miner : <strong>${totalBlocks.toLocaleString()}</strong> (~${totalStacks} stacks)
+        Unités à farm/miner/tuer : <strong>${totalBlocks.toLocaleString()}</strong> (~${totalStacks} stacks)
       `;
     });
   }
 
-  // --- LOGIQUE DU PALADIUM CLICKER ---
+  // --- CLICKER ---
   let score = 0;
   let clickValue = 1;
   let autoValue = 0;
