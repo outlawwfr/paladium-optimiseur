@@ -73,9 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <option value="10">Jacaranda / Judeecercis / Erable Log - Casser (10 XP) [Nv. 1]</option>
         <option value="0.2">Empty Flask - Crafter (0.2 XP) [Nv. 1]</option>
       </optgroup>
-    
-  
-    
+    `
   };
 
   const jobSelect = document.getElementById('jobSelect');
