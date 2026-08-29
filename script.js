@@ -1,28 +1,36 @@
-// --- DATA METIERS PALADIUM V12 ---
+// --- DATA MÉTIERS PALADIUM V12 ---
 const jobsData = {
   miner: [
     { name: "Minerai de Paladium Vert (340 XP)", xp: 340 },
     { name: "Minerai de Paladium (150 XP)", xp: 150 },
     { name: "Minerai de Titane (50 XP)", xp: 50 },
     { name: "Minerai d'Améthyste (20 XP)", xp: 20 },
+    { name: "Minerai d'Or (12 XP)", xp: 12 },
+    { name: "Minerai de Fer (8 XP)", xp: 8 },
     { name: "Pierre / Stone (0.5 XP)", xp: 0.5 }
   ],
   farmer: [
-    { name: "Récolte Eggplant (40 XP)", xp: 40 },
-    { name: "Récolte Cherries (25 XP)", xp: 25 },
-    { name: "Récolte Blé (5 XP)", xp: 5 },
-    { name: "Récolte Carotte (4 XP)", xp: 4 }
+    { name: "Eggplant / Aubergine (40 XP)", xp: 40 },
+    { name: "Cherries / Cerises (25 XP)", xp: 25 },
+    { name: "Choco Apple (20 XP)", xp: 20 },
+    { name: "Graine de Paladium (15 XP)", xp: 15 },
+    { name: "Citrouille / Pastèque (8 XP)", xp: 8 },
+    { name: "Blé / Carotte / Patate (5 XP)", xp: 5 }
   ],
   alchemist: [
     { name: "Fiole de Paladium (200 XP)", xp: 200 },
+    { name: "Potion de Soin III (120 XP)", xp: 120 },
     { name: "Potion de Force II (80 XP)", xp: 80 },
-    { name: "Preparation Potion (15 XP)", xp: 15 }
+    { name: "Potion de Speed II (50 XP)", xp: 50 },
+    { name: "Préparation Fiole basique (15 XP)", xp: 15 }
   ],
   hunter: [
-    { name: "Wither Boss (1500 XP)", xp: 1500 },
     { name: "Ender Dragon (5000 XP)", xp: 5000 },
-    { name: "Mob Agressif (12 XP)", xp: 12 },
-    { name: "Animal / Mob Passif (4 XP)", xp: 4 }
+    { name: "Wither Boss (1500 XP)", xp: 1500 },
+    { name: "Guardian (50 XP)", xp: 50 },
+    { name: "Enderman (25 XP)", xp: 25 },
+    { name: "Zombie / Squelette / Creeper (12 XP)", xp: 12 },
+    { name: "Vache / Cochon / Poulet (4 XP)", xp: 4 }
   ]
 };
 
