@@ -1,142 +1,95 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5597142717067268"
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paladium Optimiseur V12</title>
+
+    <!-- Google Analytics (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JJ3D6F5L7S"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-JJ3D6F5L7S');
+    </script>
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5597142717067268"
      crossorigin="anonymous"></script>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-JJ3D6F5L7S"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-JJ3D6F5L7S');
-</script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Paladium V12 Optimiseur & Clicker</title>
-  <link rel="stylesheet" href="style.css">
-
-  <!-- ================= SCRIPT ADSTERRA SOCIAL BAR / POPUNDER ================= -->
-  <script src="https://pl31087498.profitableratecpmnetwork.com/a2/4b/ba/a24bba1161d38b28fb48389d9cab9e22.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- ================= PUB ADSTERRA HAUT (728x90) ================= -->
-  <div style="text-align: center; margin-bottom: 20px;">
-    <script type="text/javascript">
-      atOptions = {
-        'key' : '44a740483366b2a5ba983f7a6b491274',
-        'format' : 'iframe',
-        'height' : 90,
-        'width' : 728,
-        'params' : {}
-      };
+    <main class="container">
+        <h1>Optimiseur de Métiers & Clicker Paladium V12</h1>
+
+        <!-- Section Calculateur d'XP -->
+        <section class="calculator-section">
+            <h2>Calculateur d'XP</h2>
+            <form id="xpForm">
+                <label for="job">Métier :</label>
+                <select id="job">
+                    <option value="mineur">Mineur</option>
+                    <option value="farmer">Farmer</option>
+                    <option value="alchimiste">Alchimiste</option>
+                    <option value="chasseur">Chasseur</option>
+                </select>
+
+                <label for="currentLevel">Niveau actuel :</label>
+                <input type="number" id="currentLevel" min="1" max="100" value="1">
+
+                <label for="targetLevel">Niveau ciblé :</label>
+                <input type="number" id="targetLevel" min="1" max="100" value="10">
+
+                <button type="button" id="btnCalculate">Calculer</button>
+            </form>
+
+            <div id="result" class="result-box"></div>
+        </section>
+
+        <!-- Section Mini-Jeu Clicker -->
+        <section class="clicker-section">
+            <h2>Paladium Clicker</h2>
+            <div class="score-display">
+                <p>Paladium miné : <span id="clickCount">0</span></p>
+                <p>Production : <span id="autoDisplay">0 / sec</span></p>
+            </div>
+            <button id="btnClick" class="click-btn">Miner du Paladium</button>
+        </section>
+    </main>
+
+    <!-- Script JavaScript principal -->
+    <script>
+        // --- LOGIQUE MINI-JEU CLICKER ---
+        let count = 0;
+        let autoValue = 0;
+
+        const countEl = document.getElementById('clickCount');
+        const autoEl = document.getElementById('autoDisplay');
+        const clickBtn = document.getElementById('btnClick');
+
+        // Met à jour l'affichage en utilisant les template literals (backticks ` `)
+        function updateDisplay() {
+            countEl.textContent = count;
+            autoEl.textContent = `${autoValue} / sec`;
+        }
+
+        clickBtn.addEventListener('click', () => {
+            count++;
+            updateDisplay();
+        });
+
+        // Boucle d'automatisation (1 fois par seconde)
+        setInterval(() => {
+            if (autoValue > 0) {
+                count += autoValue;
+                updateDisplay();
+            }
+        }, 1000);
     </script>
-    <script type="text/javascript" src="https://www.highrevenueformat.com/44a740483366b2a5ba983f7a6b491274/invoke.js"></script>
-  </div>
-
-  <div class="main-wrapper">
-    
-    <!-- BLOC 1 : CALCULATEUR MÉTIERS V12 -->
-    <div class="card">
-      <h1>PALADIUM V12</h1>
-      <p class="subtitle">Optimiseur Métiers</p>
-
-      <div class="form-group">
-        <label>Choisis ton Métier</label>
-        <select id="jobSelect">
-          <option value="miner">⛏️ Mineur</option>
-          <option value="farmer">🌾 Farmer</option>
-          <option value="alchemist">🧪 Alchimiste</option>
-          <option value="hunter">⚔️ Hunter (Chasseur)</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>Niveau Actuel</label>
-        <input type="number" id="currentLevel" value="1" min="1" max="100">
-      </div>
-
-      <div class="form-group">
-        <label>XP Actuelle</label>
-        <input type="number" id="currentXP" value="0">
-      </div>
-
-      <div class="form-group">
-        <label>Niveau Visé</label>
-        <input type="number" id="targetLevel" value="5" min="1" max="100">
-      </div>
-
-      <div class="form-group">
-        <label>Action / Item de Farm</label>
-        <select id="ore">
-          <!-- Chargé dynamiquement par JS -->
-        </select>
-      </div>
-
-      <div class="checkbox-group">
-        <input type="checkbox" id="booster" checked>
-        <label for="booster">Booster XP Actif (+50%)</label>
-      </div>
-
-      <button id="calc-btn">Calculer l'objectif</button>
-
-      <div class="result-box" id="result">
-        Sélectionne ton métier et lance le calcul.
-      </div>
-    </div>
-
-    <!-- BLOC 2 : PALADIUM CLICKER -->
-    <div class="card">
-      <h1>PALADIUM CLICKER</h1>
-      <p class="subtitle">Mine en attendant ton farm !</p>
-
-      <div class="clicker-score">
-        <div id="score">0</div>
-        <div class="sub-label">Paladiums minés</div>
-        <div id="pps">0 / seconde</div>
-      </div>
-
-      <button id="click-btn">🔨 MINER !</button>
-
-      <div class="shop">
-        <h3>Boutique</h3>
-
-        <div class="upgrade-item">
-          <div>
-            <strong>Pioche renforcée</strong> (+1/clic)<br>
-            <small>Coût: <span id="cost-click">15</span></small>
-          </div>
-          <button id="buy-click">Acheter (<span id="count-click">0</span>)</button>
-        </div>
-
-        <div class="upgrade-item">
-          <div>
-            <strong>Mineur Auto</strong> (+1/sec)<br>
-            <small>Coût: <span id="cost-auto">50</span></small>
-          </div>
-          <button id="buy-auto">Acheter (<span id="count-auto">0</span>)</button>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- ================= PUB ADSTERRA BAS (300x250) ================= -->
-  <div style="text-align: center; margin-top: 25px;">
-    <script type="text/javascript">
-      atOptions = {
-        'key' : 'b895e293104aa6116445460d4e0dd1fe',
-        'format' : 'iframe',
-        'height' : 250,
-        'width' : 300,
-        'params' : {}
-      };
-    </script>
-    <script type="text/javascript" src="https://www.highrevenueformat.com/b895e293104aa6116445460d4e0dd1fe/invoke.js"></script>
-  </div>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
