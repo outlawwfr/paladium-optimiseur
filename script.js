@@ -7,7 +7,7 @@ let xpSauvegardee = localStorage.getItem('monXp');
 if (xpSauvegardee) {
     xpActuelle = parseInt(xpSauvegardee);
 }
-  // --- BASE DE DONNÉES MÉTIERS (OFFICIELLE PALADIUM V12) ---
+  // --- BASE DE DONNÉES MÉTIERS  ---
   const jobOptions = {
     miner: `
       <optgroup label="Minerais Rares & Paladium">
