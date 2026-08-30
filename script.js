@@ -141,9 +141,9 @@ document.addEventListener('DOMContentLoaded', () => {
   let clickCount = 0;
   let autoCount = 0;
 
+  const clickBtn = document.getElementById('click-btn');
   const scoreEl = document.getElementById('score');
   const ppsEl = document.getElementById('pps');
-  if (ppsEl) ppsEl.textContent = `Production automatique : ${autoValue} / sec`;
   const buyClickBtn = document.getElementById('buy-click');
   const buyAutoBtn = document.getElementById('buy-auto');
   const costClickEl = document.getElementById('cost-click');
@@ -156,7 +156,9 @@ document.addEventListener('DOMContentLoaded', () => {
       score += clickValue;
       updateClickerUI();
     });
+  }
 
+  if (buyClickBtn) {
     buyClickBtn.addEventListener('click', () => {
       if (score >= clickCost) {
         score -= clickCost;
@@ -166,7 +168,9 @@ document.addEventListener('DOMContentLoaded', () => {
         updateClickerUI();
       }
     });
+  }
 
+  if (buyAutoBtn) {
     buyAutoBtn.addEventListener('click', () => {
       if (score >= autoCost) {
         score -= autoCost;
@@ -176,18 +180,18 @@ document.addEventListener('DOMContentLoaded', () => {
         updateClickerUI();
       }
     });
-
-    setInterval(() => {
-      if (autoValue > 0) {
-        score += autoValue;
-        updateClickerUI();
-      }
-    }, 1000);
   }
+
+  setInterval(() => {
+    if (autoValue > 0) {
+      score += autoValue;
+      updateClickerUI();
+    }
+  }, 1000);
 
   function updateClickerUI() {
     if (scoreEl) scoreEl.textContent = Math.floor(score);
-    if (ppsEl) ppsEl.textContent = `${autoValue} / seconde`;
+    if (ppsEl) ppsEl.textContent = `Production automatique : ${autoValue} / sec`;
     if (costClickEl) costClickEl.textContent = clickCost;
     if (costAutoEl) costAutoEl.textContent = autoCost;
     if (countClickEl) countClickEl.textContent = clickCount;
