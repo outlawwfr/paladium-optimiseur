@@ -1,13 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-// Pour sauvegarder l'XP
-localStorage.setItem('monXp', xpActuelle);
 
-// Pour recharger l'XP au lancement du site
-let xpSauvegardee = localStorage.getItem('monXp');
-if (xpSauvegardee) {
-    xpActuelle = parseInt(xpSauvegardee);
-}
-  // --- BASE DE DONNÉES MÉTIERS  ---
+  // --- BASE DE DONNÉES MÉTIERS (OFFICIELLE PALADIUM V12) ---
   const jobOptions = {
     miner: `
       <optgroup label="Minerais Rares & Paladium">
@@ -45,32 +38,16 @@ if (xpSauvegardee) {
         <option value="1">Pain (Bread) - Crafter (1 XP) [Nv. 1]</option>
       </optgroup>
     `,
-   hunter: `
-      <optgroup label="Monstres & Boss Rares">
+    hunter: `
+      <optgroup label="Monstres & Créatures">
         <option value="2500">Ghast - Tuer (2 500 XP) [Nv. 17]</option>
         <option value="1500">Enderman - Tuer (1 500 XP) [Nv. 18]</option>
         <option value="600">Zombie Pigman - Tuer (600 XP) [Nv. 14]</option>
-      </optgroup>
-      <optgroup label="Créatures & Mobs">
         <option value="150">Jelly Fish - Tuer (150 XP)</option>
         <option value="120">Snake - Tuer (120 XP) [Nv. 15]</option>
         <option value="80">Crab - Tuer (80 XP) [Nv. 12]</option>
         <option value="60">Panda - Tuer (60 XP) [Nv. 11]</option>
-        <option value="50">Witch / Sorcière - Tuer (50 XP)</option>
-        <option value="40">Creeper - Tuer (40 XP)</option>
-        <option value="35">Squelette / Skeleton - Tuer (35 XP)</option>
-        <option value="30">Spider / Araignée - Tuer (30 XP)</option>
         <option value="25">Blaze - Tuer (25 XP) [Nv. 15]</option>
-        <option value="20">Zombie - Tuer (20 XP)</option>
-        <option value="15">Slime - Tuer (15 XP)</option>
-        <option value="10">Cave Spider - Tuer (10 XP)</option>
-      </optgroup>
-      <optgroup label="Animaux & Élevage">
-        <option value="15">Vache / Cow - Tuer (15 XP)</option>
-        <option value="12">Cochon / Pig - Tuer (12 XP)</option>
-        <option value="10">Mouton / Sheep - Tuer (10 XP)</option>
-        <option value="8">Poulet / Chicken - Tuer (8 XP)</option>
-        <option value="5">Lapin / Rabbit - Tuer (5 XP)</option>
       </optgroup>
     `,
     alchemist: `
@@ -155,18 +132,18 @@ if (xpSauvegardee) {
     });
   }
 
-  // --- CLICKER ---
-  let score = 0;
-  let clickValue = 1;
-  let autoValue = 0;
-  let clickCost = 15;
-  let autoCost = 50;
-  let clickCount = 0;
-  let autoCount = 0;
+  // --- CLICKER AVEC SAUVEGARDE AUTOMATIQUE ---
+  let score = parseFloat(localStorage.getItem('clicker_score')) || 0;
+  let clickValue = parseInt(localStorage.getItem('clicker_clickValue')) || 1;
+  let autoValue = parseInt(localStorage.getItem('clicker_autoValue')) || 0;
+  let clickCost = parseInt(localStorage.getItem('clicker_clickCost')) || 15;
+  let autoCost = parseInt(localStorage.getItem('clicker_autoCost')) || 50;
+  let clickCount = parseInt(localStorage.getItem('clicker_clickCount')) || 0;
+  let autoCount = parseInt(localStorage.getItem('clicker_autoCount')) || 0;
 
-  const clickBtn = document.getElementById('click-btn');
   const scoreEl = document.getElementById('score');
   const ppsEl = document.getElementById('pps');
+  const clickBtn = document.getElementById('click-btn');
   const buyClickBtn = document.getElementById('buy-click');
   const buyAutoBtn = document.getElementById('buy-auto');
   const costClickEl = document.getElementById('cost-click');
@@ -174,48 +151,62 @@ if (xpSauvegardee) {
   const countClickEl = document.getElementById('count-click');
   const countAutoEl = document.getElementById('count-auto');
 
+  function saveGame() {
+    localStorage.setItem('clicker_score', score);
+    localStorage.setItem('clicker_clickValue', clickValue);
+    localStorage.setItem('clicker_autoValue', autoValue);
+    localStorage.setItem('clicker_clickCost', clickCost);
+    localStorage.setItem('clicker_autoCost', autoCost);
+    localStorage.setItem('clicker_clickCount', clickCount);
+    localStorage.setItem('clicker_autoCount', autoCount);
+  }
+
   if (clickBtn) {
     clickBtn.addEventListener('click', () => {
       score += clickValue;
       updateClickerUI();
+      saveGame();
     });
-  }
 
-  if (buyClickBtn) {
-    buyClickBtn.addEventListener('click', () => {
-      if (score >= clickCost) {
-        score -= clickCost;
-        clickValue += 1;
-        clickCount += 1;
-        clickCost = Math.floor(clickCost * 1.5);
-        updateClickerUI();
-      }
-    });
-  }
-
-  if (buyAutoBtn) {
-    buyAutoBtn.addEventListener('click', () => {
-      if (score >= autoCost) {
-        score -= autoCost;
-        autoValue += 1;
-        autoCount += 1;
-        autoCost = Math.floor(autoCost * 1.6);
-        updateClickerUI();
-      }
-    });
-  }
-
-  setInterval(() => {
-    if (autoValue > 0) {
-      score += autoValue;
-      updateClickerUI();
+    if (buyClickBtn) {
+      buyClickBtn.addEventListener('click', () => {
+        if (score >= clickCost) {
+          score -= clickCost;
+          clickValue += 1;
+          clickCount += 1;
+          clickCost = Math.floor(clickCost * 1.5);
+          updateClickerUI();
+          saveGame();
+        }
+      });
     }
-  }, 1000);
+
+    if (buyAutoBtn) {
+      buyAutoBtn.addEventListener('click', () => {
+        if (score >= autoCost) {
+          score -= autoCost;
+          autoValue += 1;
+          autoCount += 1;
+          autoCost = Math.floor(autoCost * 1.6);
+          updateClickerUI();
+          saveGame();
+        }
+      });
+    }
+
+    setInterval(() => {
+      if (autoValue > 0) {
+        score += autoValue;
+        updateClickerUI();
+        saveGame();
+      }
+    }, 1000);
+  }
 
   function updateClickerUI() {
     if (scoreEl) scoreEl.textContent = Math.floor(score);
-    if (ppsEl) ppsEl.textContent = `Production automatique : ${autoValue} / sec`;
-    if (costClickEl) costClickEl.textContent = clickCost;
+    if (ppsEl) ppsEl.textContent = `${autoValue} / seconde`;
+    if (costClickEl) costCostClickEl = costClickEl.textContent = clickCost;
     if (costAutoEl) costAutoEl.textContent = autoCost;
     if (countClickEl) countClickEl.textContent = clickCount;
     if (countAutoEl) countAutoEl.textContent = autoCount;
