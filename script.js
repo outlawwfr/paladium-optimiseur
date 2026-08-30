@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-  // --- BASE DE DONNÉES MÉTIERS (OFFICIELLE PALADIUM V12) ---
+  // --- BASE DE DONNÉES MÉTIERS ---
   const jobOptions = {
     miner: `
       <optgroup label="Minerais Rares & Paladium">
@@ -39,15 +39,35 @@ document.addEventListener('DOMContentLoaded', () => {
       </optgroup>
     `,
     hunter: `
-      <optgroup label="Monstres & Créatures">
+      <optgroup label="Chasse - Mobs Moddés (Farmlands)">
         <option value="2500">Ghast - Tuer (2 500 XP) [Nv. 17]</option>
         <option value="1500">Enderman - Tuer (1 500 XP) [Nv. 18]</option>
         <option value="600">Zombie Pigman - Tuer (600 XP) [Nv. 14]</option>
-        <option value="150">Jelly Fish - Tuer (150 XP)</option>
-        <option value="120">Snake - Tuer (120 XP) [Nv. 15]</option>
-        <option value="80">Crab - Tuer (80 XP) [Nv. 12]</option>
-        <option value="60">Panda - Tuer (60 XP) [Nv. 11]</option>
+        <option value="150">Méduse / Jelly Fish - Tuer (150 XP) [Nv. 18]</option>
+        <option value="120">Serpent / Snake - Tuer (120 XP) [Nv. 15]</option>
+        <option value="80">Crabe / Crab - Tuer (80 XP) [Nv. 12]</option>
+        <option value="60">Panda - Tuer (60 XP) [Nv. 9]</option>
+        <option value="40">Tortue - Tuer (40 XP) [Nv. 8]</option>
         <option value="25">Blaze - Tuer (25 XP) [Nv. 15]</option>
+        <option value="20">Chèvre - Tuer (20 XP) [Nv. 1]</option>
+      </optgroup>
+      <optgroup label="Mobs Agressifs & Spawners">
+        <option value="40">Creeper - Tuer (40 XP) [Nv. 1]</option>
+        <option value="25">Zombie - Tuer (25 XP) [Nv. 1]</option>
+        <option value="25">Squelette - Tuer (25 XP) [Nv. 1]</option>
+        <option value="20">Araignée - Tuer (20 XP) [Nv. 1]</option>
+        <option value="15">Araignée des cavernes - Tuer (15 XP) [Nv. 18]</option>
+      </optgroup>
+      <optgroup label="Passifs & Elevage">
+        <option value="14">Vache / Cochon / Mouton / Poulet / Cheval - Tuer (14 XP) [Nv. 1]</option>
+        <option value="10">Cuisson Viande (Vache, Cochon, etc.) (10 XP) [Nv. 1]</option>
+        <option value="10">Poulpe / Octopus - Tuer (10 XP) [Nv. 1]</option>
+      </optgroup>
+      <optgroup label="Pêche & Monstrueux">
+        <option value="15000">Kraken - Pêcher (15 000 XP)</option>
+        <option value="10000">Poisson Légendaire - Pêcher (10 000 XP)</option>
+        <option value="150">Carpe - Pêcher (150 XP) [Nv. 2]</option>
+        <option value="10">Poisson Vanilla - Pêcher (10 XP) [Nv. 1]</option>
       </optgroup>
     `,
     alchemist: `
