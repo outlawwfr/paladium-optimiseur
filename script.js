@@ -167,46 +167,46 @@ document.addEventListener('DOMContentLoaded', () => {
       updateClickerUI();
       saveGame();
     });
+  }
 
-    if (buyClickBtn) {
-      buyClickBtn.addEventListener('click', () => {
-        if (score >= clickCost) {
-          score -= clickCost;
-          clickValue += 1;
-          clickCount += 1;
-          clickCost = Math.floor(clickCost * 1.5);
-          updateClickerUI();
-          saveGame();
-        }
-      });
-    }
-
-    if (buyAutoBtn) {
-      buyAutoBtn.addEventListener('click', () => {
-        if (score >= autoCost) {
-          score -= autoCost;
-          autoValue += 1;
-          autoCount += 1;
-          autoCost = Math.floor(autoCost * 1.6);
-          updateClickerUI();
-          saveGame();
-        }
-      });
-    }
-
-    setInterval(() => {
-      if (autoValue > 0) {
-        score += autoValue;
+  if (buyClickBtn) {
+    buyClickBtn.addEventListener('click', () => {
+      if (score >= clickCost) {
+        score -= clickCost;
+        clickValue += 1;
+        clickCount += 1;
+        clickCost = Math.floor(clickCost * 1.5);
         updateClickerUI();
         saveGame();
       }
-    }, 1000);
+    });
   }
+
+  if (buyAutoBtn) {
+    buyAutoBtn.addEventListener('click', () => {
+      if (score >= autoCost) {
+        score -= autoCost;
+        autoValue += 1;
+        autoCount += 1;
+        autoCost = Math.floor(autoCost * 1.6);
+        updateClickerUI();
+        saveGame();
+      }
+    });
+  }
+
+  setInterval(() => {
+    if (autoValue > 0) {
+      score += autoValue;
+      updateClickerUI();
+      saveGame();
+    }
+  }, 1000);
 
   function updateClickerUI() {
     if (scoreEl) scoreEl.textContent = Math.floor(score);
     if (ppsEl) ppsEl.textContent = `${autoValue} / seconde`;
-    if (costClickEl) costCostClickEl = costClickEl.textContent = clickCost;
+    if (costClickEl) costClickEl.textContent = clickCost;
     if (costAutoEl) costAutoEl.textContent = autoCost;
     if (countClickEl) countClickEl.textContent = clickCount;
     if (countAutoEl) countAutoEl.textContent = autoCount;
