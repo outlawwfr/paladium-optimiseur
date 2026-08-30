@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const scoreEl = document.getElementById('score');
   const ppsEl = document.getElementById('pps');
-  const clickBtn = document.getElementById('click-btn');
+  if (ppsEl) ppsEl.textContent = `Production automatique : ${autoValue} / sec`;
   const buyClickBtn = document.getElementById('buy-click');
   const buyAutoBtn = document.getElementById('buy-auto');
   const costClickEl = document.getElementById('cost-click');
