@@ -38,16 +38,32 @@ document.addEventListener('DOMContentLoaded', () => {
         <option value="1">Pain (Bread) - Crafter (1 XP) [Nv. 1]</option>
       </optgroup>
     `,
-    hunter: `
-      <optgroup label="Monstres & Créatures">
+   hunter: `
+      <optgroup label="Monstres & Boss Rares">
         <option value="2500">Ghast - Tuer (2 500 XP) [Nv. 17]</option>
         <option value="1500">Enderman - Tuer (1 500 XP) [Nv. 18]</option>
         <option value="600">Zombie Pigman - Tuer (600 XP) [Nv. 14]</option>
+      </optgroup>
+      <optgroup label="Créatures & Mobs">
         <option value="150">Jelly Fish - Tuer (150 XP)</option>
         <option value="120">Snake - Tuer (120 XP) [Nv. 15]</option>
         <option value="80">Crab - Tuer (80 XP) [Nv. 12]</option>
         <option value="60">Panda - Tuer (60 XP) [Nv. 11]</option>
+        <option value="50">Witch / Sorcière - Tuer (50 XP)</option>
+        <option value="40">Creeper - Tuer (40 XP)</option>
+        <option value="35">Squelette / Skeleton - Tuer (35 XP)</option>
+        <option value="30">Spider / Araignée - Tuer (30 XP)</option>
         <option value="25">Blaze - Tuer (25 XP) [Nv. 15]</option>
+        <option value="20">Zombie - Tuer (20 XP)</option>
+        <option value="15">Slime - Tuer (15 XP)</option>
+        <option value="10">Cave Spider - Tuer (10 XP)</option>
+      </optgroup>
+      <optgroup label="Animaux & Élevage">
+        <option value="15">Vache / Cow - Tuer (15 XP)</option>
+        <option value="12">Cochon / Pig - Tuer (12 XP)</option>
+        <option value="10">Mouton / Sheep - Tuer (10 XP)</option>
+        <option value="8">Poulet / Chicken - Tuer (8 XP)</option>
+        <option value="5">Lapin / Rabbit - Tuer (5 XP)</option>
       </optgroup>
     `,
     alchemist: `
