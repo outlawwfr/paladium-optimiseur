@@ -1,5 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
+// Pour sauvegarder l'XP
+localStorage.setItem('monXp', xpActuelle);
 
+// Pour recharger l'XP au lancement du site
+let xpSauvegardee = localStorage.getItem('monXp');
+if (xpSauvegardee) {
+    xpActuelle = parseInt(xpSauvegardee);
+}
   // --- BASE DE DONNÉES MÉTIERS (OFFICIELLE PALADIUM V12) ---
   const jobOptions = {
     miner: `
