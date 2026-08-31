@@ -24,31 +24,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- BASE DE DONNÉES MÉTIERS & ITEMS ---
   const jobOptions = {
-    miner: `
-      <optgroup label="Minerais Rares & Paladium">
-        <option value="340">Minerai de Paladium Vert (340 XP)</option>
-        <option value="255">Minerai de Paladium (255 XP)</option>
-        <option value="110">Minerai de Findium (110 XP)</option>
-        <option value="85">Minerai de Titane (85 XP)</option>
-        <option value="75">Minerai d'Émeraude (75 XP)</option>
-        <option value="60">Minerai d'Améthyste (60 XP)</option>
-        <option value="25">Minerai de Diamant (25 XP)</option>
-      </optgroup>
-      <optgroup label="Minerais Classiques">
-        <option value="15">Minerai de Lapis-Lazuli (15 XP)</option>
-        <option value="15">Minerai de Redstone (15 XP)</option>
-        <option value="13">Minerai de Fer (13 XP)</option>
-        <option value="6">Minerai de Quartz du Nether (6 XP)</option>
-        <option value="4">Minerai de Charbon (4 XP)</option>
-      </optgroup>
-      <optgroup label="Cobblebreaker">
-        <option value="20">Particule Nv.5 Cobblebreaker (20 XP)</option>
-        <option value="12">Particule Nv.4 Cobblebreaker (12 XP)</option>
-        <option value="8">Particule Nv.3 Cobblebreaker (8 XP)</option>
-        <option value="4">Particule Nv.2 Cobblebreaker (4 XP)</option>
-        <option value="2">Particule Nv.1 Cobblebreaker (2 XP)</option>
-      </optgroup>
-    `,
+  miner: `
+  <optgroup label="Cuisson au Four (Lingots)">
+    <option value="15">Lingot de Paladium - Cuire (6 XP)</option>
+    <option value="8">Lingot de Titane - Cuire (5 XP)</option>
+    <option value="5">Lingot d'Améthyste - Cuire (4 XP)</option>
+    <option value="3">Lingot de Fer / Or - Cuire (3 XP)</option>
+  </optgroup>
+  <optgroup label="Minerais Rares & Paladium">
+    <option value="340">Minerai de Paladium Vert (340 XP)</option>
+    <option value="255">Minerai de Paladium (255 XP)</option>
+    <option value="110">Minerai de Findium (110 XP)</option>
+    <option value="85">Minerai de Titane (85 XP)</option>
+    <option value="75">Minerai d'Émeraude (75 XP)</option>
+    <option value="60">Minerai d'Améthyste (60 XP)</option>
+    <option value="25">Minerai de Diamant (25 XP)</option>
+  </optgroup>
+  <optgroup label="Minerais Classiques">
+    <option value="15">Minerai de Lapis-Lazuli (15 XP)</option>
+    <option value="15">Minerai de Redstone (15 XP)</option>
+    <option value="13">Minerai de Fer (13 XP)</option>
+    <option value="6">Minerai de Quartz du Nether (6 XP)</option>
+    <option value="4">Minerai de Charbon (4 XP)</option>
+  </optgroup>
+  <optgroup label="Cobblebreaker">
+    <option value="20">Particule Nv.5 Cobblebreaker (20 XP)</option>
+    <option value="12">Particule Nv.4 Cobblebreaker (12 XP)</option>
+    <option value="8">Particule Nv.3 Cobblebreaker (8 XP)</option>
+    <option value="4">Particule Nv.2 Cobblebreaker (4 XP)</option>
+    <option value="2">Particule Nv.1 Cobblebreaker (2 XP)</option>
+  </optgroup>
+`,
     farmer: `
       <optgroup label="Récolte & Actions">
         <option value="5">Citrouille - Casser (5 XP) [Nv. 7]</option>
