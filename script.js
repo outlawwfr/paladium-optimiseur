@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateOreOptions();
   }
 
-  // --- CALCULATEUR ---
+  // --- CALCULATEUR D'XP CORRIGÉ ---
   const calcBtn = document.getElementById('calc-btn');
   const resultEl = document.getElementById('result');
 
@@ -126,16 +126,16 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      function getXPForLevel(lvl) {
+      // Calcul direct d'XP globale pour un niveau
+      function getGlobalXPForLevel(lvl) {
         return Math.floor(1000 * Math.pow(lvl, 1.8));
       }
 
-      let totalXPNeeded = 0;
-      for (let l = currentLevel; l < targetLevel; l++) {
-        totalXPNeeded += getXPForLevel(l);
-      }
+      // XP totale nécessaire entre les deux niveaux moins l'XP déjà accumulée
+      let targetXP = getGlobalXPForLevel(targetLevel);
+      let currentTotalXP = getGlobalXPForLevel(currentLevel) + currentXP;
+      let remainingXP = targetXP - currentTotalXP;
 
-      let remainingXP = totalXPNeeded - currentXP;
       if (remainingXP <= 0) {
         resultEl.textContent = "Objectif déjà atteint !";
         return;
