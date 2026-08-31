@@ -1,6 +1,28 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-  // --- BASE DE DONNÉES MÉTIERS ---
+  // --- TABLEAU D'XP EXACT PAR NIVEAU ---
+  // Représente l'XP totale requise pour passer du niveau N au niveau N+1
+  const xpTable = {
+    1: 1000,
+    2: 5000,
+    3: 15000,
+    4: 37189, // <-- Valeur exacte Paladium V12
+    5: 60000,
+    6: 100000,
+    // Tu peux ajouter d'autres niveaux ici au fur et à mesure :
+    // 7: 150000,
+  };
+
+  // Fonction pour récupérer l'XP requise pour un niveau donné
+  function getXPRequiredForLevel(lvl) {
+    if (xpTable[lvl]) {
+      return xpTable[lvl];
+    }
+    // Formule par défaut si le niveau n'est pas encore dans le tableau
+    return Math.floor(1000 * Math.pow(lvl, 2.2));
+  }
+
+  // --- BASE DE DONNÉES MÉTIERS & ITEMS ---
   const jobOptions = {
     miner: `
       <optgroup label="Minerais Rares & Paladium">
@@ -109,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateOreOptions();
   }
 
-  // --- CALCULATEUR D'XP CORRIGÉ ---
+  // --- CALCULATEUR D'XP ---
   const calcBtn = document.getElementById('calc-btn');
   const resultEl = document.getElementById('result');
 
@@ -126,15 +148,14 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // Calcul direct d'XP globale pour un niveau
-      function getGlobalXPForLevel(lvl) {
-        return Math.floor(1000 * Math.pow(lvl, 1.8));
+      // Calcul cumulé de l'XP requise niveau par niveau
+      let totalXPNeeded = 0;
+      for (let lvl = currentLevel; lvl < targetLevel; lvl++) {
+        totalXPNeeded += getXPRequiredForLevel(lvl);
       }
 
-      // XP totale nécessaire entre les deux niveaux moins l'XP déjà accumulée
-      let targetXP = getGlobalXPForLevel(targetLevel);
-      let currentTotalXP = getGlobalXPForLevel(currentLevel) + currentXP;
-      let remainingXP = targetXP - currentTotalXP;
+      // Soustraction de l'XP déjà acquise au niveau actuel
+      let remainingXP = totalXPNeeded - currentXP;
 
       if (remainingXP <= 0) {
         resultEl.textContent = "Objectif déjà atteint !";
