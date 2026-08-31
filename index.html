@@ -43,8 +43,19 @@
     <div class="card">
       <h1>PALADIUM V12</h1>
       <p class="subtitle">Optimiseur Métiers</p>
+      
+      <!-- CHOIX DE LA VERSION (JAVA / BEDROCK) -->
       <div class="form-group">
-        <label>Choisis ton Métier</label>
+        <label for="versionSelect">Choisis ta Version</label>
+        <select id="versionSelect">
+          <option value="java">Java Edition (PC)</option>
+          <option value="bedrock">Bedrock Edition (Mobile / Console / PC)</option>
+        </select>
+      </div>
+
+      <!-- CHOIX DU MÉTIER -->
+      <div class="form-group">
+        <label for="jobSelect">Choisis ton Métier</label>
         <select id="jobSelect">
           <option value="miner">⛏️ Mineur</option>
           <option value="farmer">🌾 Farmer</option>
@@ -52,20 +63,21 @@
           <option value="hunter">⚔️ Hunter (Chasseur)</option>
         </select>
       </div>
+
       <div class="form-group">
-        <label>Niveau Actuel</label>
+        <label for="currentLevel">Niveau Actuel</label>
         <input type="number" id="currentLevel" value="1" min="1" max="100">
       </div>
       <div class="form-group">
-        <label>XP Actuelle</label>
+        <label for="currentXP">XP Actuelle</label>
         <input type="number" id="currentXP" value="0">
       </div>
       <div class="form-group">
-        <label>Niveau Visé</label>
+        <label for="targetLevel">Niveau Visé</label>
         <input type="number" id="targetLevel" value="5" min="1" max="100">
       </div>
       <div class="form-group">
-        <label>Action / Item de Farm</label>
+        <label for="ore">Action / Item de Farm</label>
         <select id="ore">
           <!-- Chargé dynamiquement par JS -->
         </select>
