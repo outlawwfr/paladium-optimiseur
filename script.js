@@ -1,14 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   // --- TABLEAU D'XP EXACT PAR NIVEAU ---
-  const xpTable = {
-    1: 1000,
-    2: 5000,
-    3: 15000,
-    4: 37189, // Valeur exacte Paladium V12
-    5: 60000,
-    6: 100000,
-  };
+const xpCumulativeTable = {
+  1: 0,
+  2: 1000,
+  3: 5000,
+  4: 15000,
+  5: 37189,
+  6: 73751,
+  7: 120000,
+};
+
+function getXPForLevel(lvl) {
+  if (xpCumulativeTable[lvl] !== undefined) return xpCumulativeTable[lvl];
+  return Math.floor(1000 * Math.pow(lvl, 2.2));
+}
 
   function getXPRequiredForLevel(lvl) {
     if (xpTable[lvl]) return xpTable[lvl];
