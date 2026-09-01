@@ -180,40 +180,39 @@ document.addEventListener('DOMContentLoaded', () => {
   const resultEl = document.getElementById('result');
 
   if (calcBtn) {
-    calcBtn.addEventListener('click', () => {
-      const currentLevel = parseInt(document.getElementById('currentLevel').value) || 1;
-      const currentXP = parseInt(document.getElementById('currentXP').value) || 0;
-      const targetLevel = parseInt(document.getElementById('targetLevel').value) || 1;
-      const oreXP = parseFloat(document.getElementById('ore').value) || 1;
-      const hasBooster = document.getElementById('booster').checked;
+  calcBtn.addEventListener('click', () => {
+    const currentLevel = parseInt(document.getElementById('currentLevel').value) || 1;
+    const currentXP = parseInt(document.getElementById('currentXP').value) || 0;
+    const targetLevel = parseInt(document.getElementById('targetLevel').value) || 1;
+    const oreXP = parseFloat(document.getElementById('ore').value) || 1;
+    const hasBooster = document.getElementById('booster').checked;
 
-      if (targetLevel <= currentLevel) {
-        resultEl.textContent = "Le niveau visé doit être supérieur au niveau actuel.";
-        return;
-      }
+    if (targetLevel <= currentLevel) {
+      resultEl.textContent = "Le niveau visé doit être supérieur au niveau actuel.";
+      return;
+    }
 
-      let totalXPNeeded = 0;
-      for (let lvl = currentLevel; lvl < targetLevel; lvl++) {
-        totalXPNeeded += getXPRequiredForLevel(lvl);
-      }
+    // XP totale requise pour le niveau cible
+    let targetTotalXP = getXPForLevel(targetLevel);
 
-      let remainingXP = totalXPNeeded - currentXP;
+    // XP réellement manquante
+    let remainingXP = targetTotalXP - currentXP;
 
-      if (remainingXP <= 0) {
-        resultEl.textContent = "Objectif déjà atteint !";
-        return;
-      }
+    if (remainingXP <= 0) {
+      resultEl.textContent = "Objectif déjà atteint !";
+      return;
+    }
 
-      let finalXPPerBlock = hasBooster ? (oreXP * 1.5) : oreXP;
-      let totalBlocks = Math.ceil(remainingXP / finalXPPerBlock);
-      let totalStacks = (totalBlocks / 64).toFixed(1);
+    let finalXPPerBlock = hasBooster ? (oreXP * 1.5) : oreXP;
+    let totalBlocks = Math.ceil(remainingXP / finalXPPerBlock);
+    let totalStacks = (totalBlocks / 64).toFixed(1);
 
-      resultEl.innerHTML = `
-        XP manquante : <strong>${remainingXP.toLocaleString()} XP</strong><br>
-        Unités à farm/miner/tuer : <strong>${totalBlocks.toLocaleString()}</strong> (~${totalStacks} stacks)
-      `;
-    });
-  }
+    resultEl.innerHTML = `
+      XP manquante : <strong>${remainingXP.toLocaleString('fr-FR')} XP</strong><br>
+      Unités à farm/miner/tuer : <strong>${totalBlocks.toLocaleString('fr-FR')}</strong> (~${totalStacks} stacks)
+    `;
+  });
+}
 
   // --- PALADIUM CLICKER ---
   let score = parseFloat(localStorage.getItem('clicker_score')) || 0;
