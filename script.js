@@ -15,11 +15,11 @@ document.addEventListener('DOMContentLoaded', () => {
     return Math.floor(1000 * Math.pow(lvl, 2.2));
   }
 
-  // --- BASE DE DONNÉES SÉPARÉE JAVA / BEDROCK ---
+  // --- BASE DE DONNÉES COMPLÈTE SÉPARÉE JAVA / BEDROCK ---
   const jobDatabase = {
     java: {
       miner: `
-        <optgroup label="Minerais Rares & Paladium (Java)">
+        <optgroup label="Minerais Rares & Paladium">
           <option value="340">Minerai de Paladium Vert (340 XP)</option>
           <option value="255">Minerai de Paladium (255 XP)</option>
           <option value="110">Minerai de Findium (110 XP)</option>
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <option value="60">Minerai d'Améthyste (60 XP)</option>
           <option value="25">Minerai de Diamant (25 XP)</option>
         </optgroup>
-        <optgroup label="Cuisson (Java)">
+        <optgroup label="Cuisson au Four">
           <option value="15">Lingot de Paladium - Fondre (15 XP)</option>
           <option value="8">Lingot de Titane - Fondre (8 XP)</option>
         </optgroup>
@@ -38,9 +38,12 @@ document.addEventListener('DOMContentLoaded', () => {
           <option value="13">Minerai de Fer (13 XP)</option>
           <option value="6">Minerai de Quartz du Nether (6 XP)</option>
           <option value="4">Minerai de Charbon (4 XP)</option>
+          <option value="3">Andésite / Diorite / Granite (3 XP)</option>
+          <option value="0.5">Roche (0.5 XP)</option>
         </optgroup>
         <optgroup label="Cobblebreaker">
-          <option value="20">Particule Nv.5 Cobblebreaker (20 XP)</option>
+          <option value="20">Particule Nv.6 Cobblebreaker (20 XP)</option>
+          <option value="16">Particule Nv.5 Cobblebreaker (16 XP)</option>
           <option value="12">Particule Nv.4 Cobblebreaker (12 XP)</option>
           <option value="8">Particule Nv.3 Cobblebreaker (8 XP)</option>
           <option value="4">Particule Nv.2 Cobblebreaker (4 XP)</option>
@@ -48,31 +51,74 @@ document.addEventListener('DOMContentLoaded', () => {
         </optgroup>
       `,
       farmer: `
-        <optgroup label="Récolte & Actions (Java)">
-          <option value="5">Citrouille - Casser (5 XP) [Nv. 7]</option>
-          <option value="4">Melon - Casser (4 XP) [Nv. 6]</option>
-          <option value="2.5">Carotte - Casser (2.5 XP) [Nv. 3]</option>
-          <option value="2">Pomme de terre - Casser (2 XP) [Nv. 2]</option>
-          <option value="2">Pomme de terre cuite - Cuire (2 XP) [Nv. 2]</option>
-          <option value="1.5">Graine (Seed) - Casser (1.5 XP) [Nv. 2]</option>
-          <option value="1">Pain (Bread) - Crafter (1 XP) [Nv. 1]</option>
+        <optgroup label="Récolte & Cultures">
+          <option value="50">Kiwano - Casser (50 XP)</option>
+          <option value="20">Chervil - Casser (20 XP)</option>
+          <option value="10">Eggplant - Casser (10 XP)</option>
+          <option value="5">Citrouille - Casser (5 XP)</option>
+          <option value="4">Melon - Casser (4 XP)</option>
+          <option value="2.5">Carotte - Casser (2.5 XP)</option>
+          <option value="2">Pomme de terre - Casser (2 XP)</option>
+          <option value="1.5">Graine (Seed) - Casser (1.5 XP)</option>
+        </optgroup>
+        <optgroup label="Broyage & Craft">
+          <option value="6">Lingot de Paladium - Broyer (6 XP)</option>
+          <option value="4.5">Lingot de Titane - Broyer (4.5 XP)</option>
+          <option value="4">Tarte à la citrouille - Crafter (4 XP)</option>
+          <option value="3">Lingot d'Améthyste - Broyer (3 XP)</option>
+          <option value="1">Pain - Crafter (1 XP)</option>
         </optgroup>
       `,
       hunter: `
-        <optgroup label="Chasse (Java)">
+        <optgroup label="Pêche Paladium">
+          <option value="15000">Kraken - Pêcher (15 000 XP)</option>
+          <option value="10000">Baleine - Pêcher (10 000 XP)</option>
+          <option value="750">Poisson à exp - Pêcher (750 XP)</option>
+          <option value="550">Poisson lune - Pêcher (550 XP)</option>
+          <option value="450">Thon rouge - Pêcher (450 XP)</option>
+          <option value="300">Raie Manta - Pêcher (300 XP)</option>
+          <option value="225">Bar - Pêcher (225 XP)</option>
+          <option value="200">Poisson-clown - Pêcher (200 XP)</option>
+          <option value="150">Carpe - Pêcher (150 XP)</option>
+          <option value="75">Poisson-globe - Pêcher (75 XP)</option>
+          <option value="35">Saumon cru - Pêcher (35 XP)</option>
+          <option value="25">Poisson cru - Pêcher (25 XP)</option>
+        </optgroup>
+        <optgroup label="Monstres & Boss">
           <option value="2500">Ghast - Tuer (2 500 XP)</option>
           <option value="1500">Enderman - Tuer (1 500 XP)</option>
+          <option value="1000">Wither - Tuer (1 000 XP)</option>
           <option value="600">Zombie Pigman - Tuer (600 XP)</option>
           <option value="40">Creeper - Tuer (40 XP)</option>
+          <option value="30">Perroquet - Tuer (30 XP)</option>
+          <option value="25">Escargot - Tuer (25 XP)</option>
           <option value="25">Zombie / Squelette - Tuer (25 XP)</option>
+          <option value="20">Chèvre - Tuer (20 XP)</option>
+          <option value="14">Vache / Lapin / Mouton / Poule / Cochon - Tuer (14 XP)</option>
+          <option value="10">Poulpe - Tuer (10 XP)</option>
+        </optgroup>
+        <optgroup label="Cuisson Viande">
+          <option value="15">Saumon / Poisson cuit - Cuire (15 XP)</option>
+          <option value="10">Steak / Côtelette / Poulet / Mouton grillé - Cuire (10 XP)</option>
         </optgroup>
       `,
       alchemist: `
-        <optgroup label="Alchimie & Sève (Java)">
-          <option value="240">Erable Log - Extraire Sève (240 XP)</option>
+        <optgroup label="Sève & Chaudron">
+          <option value="240">Érable Log - Extraire Sève (240 XP)</option>
           <option value="120">Judeecercis Log - Extraire Sève (120 XP)</option>
           <option value="100">Paladium Flower - Chaudron (100 XP)</option>
           <option value="60">Jacaranda Log - Extraire Sève (60 XP)</option>
+        </optgroup>
+        <optgroup label="Potions & Ingrédients">
+          <option value="60">Potion d'Invisibilité (60 XP)</option>
+          <option value="50">Potion de Vitesse II (50 XP)</option>
+          <option value="35">Potion de Force I (35 XP)</option>
+          <option value="25">Potion de Soin I (25 XP)</option>
+          <option value="15">Larme de Ghast - Obtenir (15 XP)</option>
+          <option value="5">Crème de magma - Crafter (5 XP)</option>
+          <option value="3">Poudre de Blaze - Crafter (3 XP)</option>
+          <option value="2">Verrue du Nether - Cultiver (2 XP)</option>
+          <option value="0.5">Fiole d'eau - Remplir (0.5 XP)</option>
         </optgroup>
       `
     },
@@ -169,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- CLICKER AVEC SAUVEGARDE AUTOMATIQUE ---
+  // --- PALADIUM CLICKER ---
   let score = parseFloat(localStorage.getItem('clicker_score')) || 0;
   let clickValue = parseInt(localStorage.getItem('clicker_clickValue')) || 1;
   let autoValue = parseInt(localStorage.getItem('clicker_autoValue')) || 0;
