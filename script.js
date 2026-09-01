@@ -1,14 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   // --- TABLEAU D'XP CUMULÉE PAR NIVEAU (PALADIUM V12) ---
-  const xpCumulativeTable = {
+const xpCumulativeTable = {
     1: 0,
-    2: 1000,
-    3: 5000,
-    4: 15000,
-    5: 37189,
-    6: 73751,
-    7: 120000,
+    2: 5000,
+    3: 15000,
+    4: 73751,
+    5: 120000,
+    6: 200000,
+    7: 350000,
   };
 
   function getXPForLevel(lvl) {
