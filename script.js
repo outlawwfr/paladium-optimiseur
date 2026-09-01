@@ -1,27 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-  // --- TABLEAU D'XP EXACT PAR NIVEAU ---
-const xpCumulativeTable = {
-  1: 0,
-  2: 1000,
-  3: 5000,
-  4: 15000,
-  5: 37189,
-  6: 73751,
-  7: 120000,
-};
+  // --- TABLEAU D'XP CUMULÉE PAR NIVEAU (PALADIUM V12) ---
+  const xpCumulativeTable = {
+    1: 0,
+    2: 1000,
+    3: 5000,
+    4: 15000,
+    5: 37189,
+    6: 73751,
+    7: 120000,
+  };
 
-function getXPForLevel(lvl) {
-  if (xpCumulativeTable[lvl] !== undefined) return xpCumulativeTable[lvl];
-  return Math.floor(1000 * Math.pow(lvl, 2.2));
-}
-
-  function getXPRequiredForLevel(lvl) {
-    if (xpTable[lvl]) return xpTable[lvl];
+  function getXPForLevel(lvl) {
+    if (xpCumulativeTable[lvl] !== undefined) return xpCumulativeTable[lvl];
     return Math.floor(1000 * Math.pow(lvl, 2.2));
   }
 
-  // --- BASE DE DONNÉES COMPLÈTE SÉPARÉE JAVA / BEDROCK ---
+  // --- BASE DE DONNÉES SÉPARÉE JAVA / BEDROCK ---
   const jobDatabase = {
     java: {
       miner: `
@@ -164,6 +159,18 @@ function getXPForLevel(lvl) {
   const versionSelect = document.getElementById('versionSelect');
   const jobSelect = document.getElementById('jobSelect');
   const oreSelect = document.getElementById('ore');
+  const currentLevelInput = document.getElementById('currentLevel');
+  const currentXPInput = document.getElementById('currentXP');
+  const targetLevelInput = document.getElementById('targetLevel');
+  const boosterCheckbox = document.getElementById('booster');
+
+  // --- CHARGEMENT DES SAUVEGARDES DU CALCULATEUR ---
+  if (localStorage.getItem('calc_version') && versionSelect) versionSelect.value = localStorage.getItem('calc_version');
+  if (localStorage.getItem('calc_job') && jobSelect) jobSelect.value = localStorage.getItem('calc_job');
+  if (localStorage.getItem('calc_currentLevel') && currentLevelInput) currentLevelInput.value = localStorage.getItem('calc_currentLevel');
+  if (localStorage.getItem('calc_currentXP') && currentXPInput) currentXPInput.value = localStorage.getItem('calc_currentXP');
+  if (localStorage.getItem('calc_targetLevel') && targetLevelInput) targetLevelInput.value = localStorage.getItem('calc_targetLevel');
+  if (localStorage.getItem('calc_booster') !== null && boosterCheckbox) boosterCheckbox.checked = localStorage.getItem('calc_booster') === 'true';
 
   function updateOreOptions() {
     const selectedVersion = versionSelect ? versionSelect.value : 'java';
@@ -174,11 +181,31 @@ function getXPForLevel(lvl) {
     } else {
       oreSelect.innerHTML = jobDatabase.java.miner;
     }
+
+    if (localStorage.getItem('calc_ore') && oreSelect) {
+      oreSelect.value = localStorage.getItem('calc_ore');
+    }
   }
 
-  if (jobSelect) jobSelect.addEventListener('change', updateOreOptions);
-  if (versionSelect) versionSelect.addEventListener('change', updateOreOptions);
-  
+  function saveCalcData() {
+    if (versionSelect) localStorage.setItem('calc_version', versionSelect.value);
+    if (jobSelect) localStorage.setItem('calc_job', jobSelect.value);
+    if (currentLevelInput) localStorage.setItem('calc_currentLevel', currentLevelInput.value);
+    if (currentXPInput) localStorage.setItem('calc_currentXP', currentXPInput.value);
+    if (targetLevelInput) localStorage.setItem('calc_targetLevel', targetLevelInput.value);
+    if (oreSelect) localStorage.setItem('calc_ore', oreSelect.value);
+    if (boosterCheckbox) localStorage.setItem('calc_booster', boosterCheckbox.checked);
+  }
+
+  // Événements de mise à jour et sauvegarde
+  if (jobSelect) jobSelect.addEventListener('change', () => { updateOreOptions(); saveCalcData(); });
+  if (versionSelect) versionSelect.addEventListener('change', () => { updateOreOptions(); saveCalcData(); });
+  if (currentLevelInput) currentLevelInput.addEventListener('input', saveCalcData);
+  if (currentXPInput) currentXPInput.addEventListener('input', saveCalcData);
+  if (targetLevelInput) targetLevelInput.addEventListener('input', saveCalcData);
+  if (oreSelect) oreSelect.addEventListener('change', saveCalcData);
+  if (boosterCheckbox) boosterCheckbox.addEventListener('change', saveCalcData);
+
   updateOreOptions();
 
   // --- CALCULATEUR D'XP ---
@@ -186,39 +213,38 @@ function getXPForLevel(lvl) {
   const resultEl = document.getElementById('result');
 
   if (calcBtn) {
-  calcBtn.addEventListener('click', () => {
-    const currentLevel = parseInt(document.getElementById('currentLevel').value) || 1;
-    const currentXP = parseInt(document.getElementById('currentXP').value) || 0;
-    const targetLevel = parseInt(document.getElementById('targetLevel').value) || 1;
-    const oreXP = parseFloat(document.getElementById('ore').value) || 1;
-    const hasBooster = document.getElementById('booster').checked;
+    calcBtn.addEventListener('click', () => {
+      saveCalcData();
 
-    if (targetLevel <= currentLevel) {
-      resultEl.textContent = "Le niveau visé doit être supérieur au niveau actuel.";
-      return;
-    }
+      const currentLevel = parseInt(currentLevelInput.value) || 1;
+      const currentXP = parseInt(currentXPInput.value) || 0;
+      const targetLevel = parseInt(targetLevelInput.value) || 1;
+      const oreXP = parseFloat(oreSelect.value) || 1;
+      const hasBooster = boosterCheckbox.checked;
 
-    // XP totale requise pour le niveau cible
-    let targetTotalXP = getXPForLevel(targetLevel);
+      if (targetLevel <= currentLevel) {
+        resultEl.textContent = "Le niveau visé doit être supérieur au niveau actuel.";
+        return;
+      }
 
-    // XP réellement manquante
-    let remainingXP = targetTotalXP - currentXP;
+      let targetTotalXP = getXPForLevel(targetLevel);
+      let remainingXP = targetTotalXP - currentXP;
 
-    if (remainingXP <= 0) {
-      resultEl.textContent = "Objectif déjà atteint !";
-      return;
-    }
+      if (remainingXP <= 0) {
+        resultEl.textContent = "Objectif déjà atteint !";
+        return;
+      }
 
-    let finalXPPerBlock = hasBooster ? (oreXP * 1.5) : oreXP;
-    let totalBlocks = Math.ceil(remainingXP / finalXPPerBlock);
-    let totalStacks = (totalBlocks / 64).toFixed(1);
+      let finalXPPerBlock = hasBooster ? (oreXP * 1.5) : oreXP;
+      let totalBlocks = Math.ceil(remainingXP / finalXPPerBlock);
+      let totalStacks = (totalBlocks / 64).toFixed(1);
 
-    resultEl.innerHTML = `
-      XP manquante : <strong>${remainingXP.toLocaleString('fr-FR')} XP</strong><br>
-      Unités à farm/miner/tuer : <strong>${totalBlocks.toLocaleString('fr-FR')}</strong> (~${totalStacks} stacks)
-    `;
-  });
-}
+      resultEl.innerHTML = `
+        XP manquante : <strong>${remainingXP.toLocaleString('fr-FR')} XP</strong><br>
+        Unités à farm/miner/tuer : <strong>${totalBlocks.toLocaleString('fr-FR')}</strong> (~${totalStacks} stacks)
+      `;
+    });
+  }
 
   // --- PALADIUM CLICKER ---
   let score = parseFloat(localStorage.getItem('clicker_score')) || 0;
